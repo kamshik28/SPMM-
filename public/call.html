@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Call</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="video-container">
+  <video id="localVideo" autoplay muted></video>
+  <video id="remoteVideo" autoplay></video>
+</div>
+<div class="video-controls">
+  <button id="toggleCamera">
+    <img id="cameraIcon" src="../../../untitled1/public/images/cameraOn.png" alt="Toggle Camera">
+  </button>
+  <button id="toggleMicrophone">
+    <img id="microphoneIcon" src="../../../untitled1/public/images/microon.png" alt="Toggle Microphone">
+  </button>
+</div>
+<button id="endCall">End Call</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const roomId = urlParams.get('room');
+
+  if (!roomId) {
+    alert('Room ID is missing. Please add ?room=123 to the URL.');
+  } else {
+    startCall(roomId);
+  }
+
+  // Обробник кнопки "End Call"
+  document.getElementById('endCall').addEventListener('click', () => {
+    endCall(roomId); // Завершити дзвінок
+    window.close(); // Закрити вкладку
+  });
+</script>
+</body>
+</html>
